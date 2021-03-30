@@ -104,7 +104,7 @@ print('')
 """
 Streaming Part
 """
-#Read from kafka topic "quake"
+#Read from kafka topic "injection"
 kafka_df = spark \
     .readStream \
     .format('kafka') \
