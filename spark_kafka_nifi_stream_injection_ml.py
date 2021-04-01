@@ -15,7 +15,7 @@ from sklearn.metrics import classification_report, confusion_matrix
 spark = SparkSession\
     .builder\
     .master('local[2]')\
-    .appName('quakes_ml')\
+    .appName('injection_predictor')\
     .config('spark.jars.packages', 'org.mongodb.spark:mongo-spark-connector_2.12:2.4.1')\
     .config("spark.streaming.stopGracefullyOnShutdown", "true") \
     .getOrCreate()
