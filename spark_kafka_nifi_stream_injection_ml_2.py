@@ -2,7 +2,7 @@ import pyspark
 from pyspark.sql import SparkSession
 from pyspark.sql.types import *
 from pyspark.sql.functions import *
-from pyspark.ml import Pipeline
+from pyspark.ml import Pipeline, PipelineModel
 from pyspark.ml.classification import RandomForestClassifier
 from pyspark.ml.feature import VectorAssembler, VectorSizeHint, StandardScaler, MinMaxScaler
 from pyspark.ml.evaluation import RegressionEvaluator
@@ -74,8 +74,9 @@ model_reg = RandomForestClassifier(featuresCol='features', labelCol='reason').se
 pipeline = Pipeline(stages=[assembler, scaler, model_reg])
 
 # Train the Model
-model = pipeline.fit(df_training)
-model.save("model")
+# model = pipeline.fit(df_training)
+# model.save("model")
+model = PipelineModel.load('model')
 # Make the prediction
 pred_results = model.transform(df_testing)
 
