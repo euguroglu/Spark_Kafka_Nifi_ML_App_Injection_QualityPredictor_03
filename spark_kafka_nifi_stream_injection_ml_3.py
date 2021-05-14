@@ -155,31 +155,31 @@ pred_results_stream = model.transform(explode_df)
 #Remove feature column
 pred_results_stream_simplified = pred_results_stream.selectExpr("timCycle", "prediction")
 
-# kafka_df = pred_results_stream_simplified.select("*")
-# kafka_df = kafka_df.selectExpr("cast(timCycle as string) timCycle", "prediction")
-#
-# kafka_target_df = kafka_df.selectExpr("timCycle as key",
-#                                              "to_json(struct(*)) as value")
-#
-# kafka_target_df.printSchema()
-#
-# nifi_query = kafka_target_df \
-#         .writeStream \
-#         .queryName("Notification Writer") \
-#         .format("kafka") \
-#         .option("kafka.bootstrap.servers", "localhost:9092") \
-#         .option("topic", "injection2") \
-#         .outputMode("append") \
-#         .option("checkpointLocation", "chk-point-dir") \
-#         .start()
-#
-# nifi_query.awaitTermination()
+kafka_df = pred_results_stream_simplified.select("*")
+kafka_df = kafka_df.selectExpr("cast(timCycle as string) timCycle", "prediction")
+
+kafka_target_df = kafka_df.selectExpr("timCycle as key",
+                                             "to_json(struct(*)) as value")
+
+kafka_target_df.printSchema()
+
+nifi_query = kafka_target_df \
+        .writeStream \
+        .queryName("Notification Writer") \
+        .format("kafka") \
+        .option("kafka.bootstrap.servers", "localhost:9092") \
+        .option("topic", "injection2") \
+        .outputMode("append") \
+        .option("checkpointLocation", "chk-point-dir") \
+        .start()
+
+nifi_query.awaitTermination()
 # ## Below command used to preview results on the console before inserting data to database
 # #Sink result to console
-window_query = pred_results_stream_simplified.writeStream \
-     .format("console") \
-     .outputMode("append") \
-     .trigger(processingTime="10 seconds") \
-     .start()
-
-window_query.awaitTermination()
+# window_query = pred_results_stream_simplified.writeStream \
+#      .format("console") \
+#      .outputMode("append") \
+#      .trigger(processingTime="10 seconds") \
+#      .start()
+#
+# window_query.awaitTermination()
