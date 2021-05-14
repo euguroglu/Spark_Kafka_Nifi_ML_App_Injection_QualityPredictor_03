@@ -1,6 +1,6 @@
 # SparkStream Machine Learning Application 03 (Plastic Injection Quality Prediction on Streaming Data)
 ### Dataflow Pipeline
-![](pipeline.JPG)
+![](pipeline_v2.JPG)
 
 ### Summary
 
