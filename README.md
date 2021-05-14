@@ -326,3 +326,25 @@ spark-submit --packages org.apache.spark:spark-sql-kafka-0-10_2.12:3.0.1 spark_k
 ```
 
 6. Check command window for result
+
+### Latest Modifications Comments
+
+spark_kafka_nifi_stream_injection_ml_3.py is the latest version of the code. Main difference is now pyspark machine learning model is not being trained on the fly. Instead we are saving our trained machine learning model using spark_kafka_nifi_stream_injection_ml.py file
+
+```
+model.save("model")
+```
+
+After than we are loading this model using below script on the spark_kafka_nifi_stream_injection_ml_3.py file
+
+```
+model = PipelineModel.load('model')
+```
+
+We needed import PipelineModel to use load command
+
+```
+from pyspark.ml import PipelineModel
+```
+
+That way we ensure more stable code and performance during the production.
