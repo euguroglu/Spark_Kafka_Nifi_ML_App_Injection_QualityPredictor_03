@@ -75,6 +75,7 @@ pipeline = Pipeline(stages=[assembler, scaler, model_reg])
 
 # Train the Model
 model = pipeline.fit(df_training)
+# Saving the model
 model.save("model")
 # Make the prediction
 pred_results = model.transform(df_testing)

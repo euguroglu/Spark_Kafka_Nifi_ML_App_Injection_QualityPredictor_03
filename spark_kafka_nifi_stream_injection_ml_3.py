@@ -20,9 +20,13 @@ spark = SparkSession\
     .config("spark.streaming.stopGracefullyOnShutdown", "true") \
     .getOrCreate()
 
-# Train the Model
-# model = pipeline.fit(df_training)
-# model.save("model")
+"""
+Machine learning part
+"""
+# We are currently not training model on the fly
+# Instead we are loading saved model directly
+# To see machine learning training check "spark_kafka_nifi_stream_injection_ml.py file"
+# Loading the model
 model = PipelineModel.load('model')
 
 """
